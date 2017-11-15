@@ -35,7 +35,7 @@ def mk_random_orders(n, user_list = [], token_id = 0,type_prob = 0.5, price_bias
               timestamp=timestamp)
         timestamp = timestamp + time_interval
 
-def mk_random_trade(n, user_list = [], token_id = 0, price_bias = 2000, price_fluct = 0.1, amount_bias = 500, amount_fluct = 0.5, timestamp_start = 0, time_interval = 1):
+def mk_random_trades(n, user_list = [], token_id = 0, price_bias = 2000, price_fluct = 0.1, amount_bias = 500, amount_fluct = 0.5, timestamp_start = 0, time_interval = 1):
     if not user_list:
         user_list.append('random')
     else:
