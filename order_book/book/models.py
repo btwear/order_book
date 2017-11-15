@@ -20,7 +20,7 @@ class Trade(models.Model):
     timestamp = models.IntegerField(default=-1)
     token_id = models.IntegerField(default=-1)
 
-#紀錄每個時間區間內的平均交易價格, 以及成交量
+#record trade in the time interval
 class HistoryTrade(models.Model):
     price = models.FloatField(default=-1)
     amount = models.IntegerField(default=-1)

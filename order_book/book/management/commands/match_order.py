@@ -16,9 +16,9 @@ class Command(BaseCommand):
             order_buffer.append([[],[]])
 
         while True:
-            #每一種幣別都需做一次
+            #do things for every token type
             for ti in range(0, len(order_buffer)):
-                # 同步資料庫Order資料
+                # sync with database
                 for i in [BUY, SELL]:
                     query_list = list(Order.objects.filter(pk__gt=order_pk[i], type=i, token_id=token_list[ti].id))
                     if not query_list:
@@ -26,7 +26,7 @@ class Command(BaseCommand):
                     order_buffer[ti][i] = list(chain(order_buffer[ti][i], query_list))
                     order_pk[i] = query_list[-1].pk
                     order_buffer[ti][i] = sorted(order_buffer[ti][i], key=attrgetter('price', 'pk'), reverse=not bool(i))
-                #撮合交易
+                #match trade
                 while True:
                     buy = order_buffer[ti][BUY][0]
                     sell = order_buffer[ti][SELL][0]
