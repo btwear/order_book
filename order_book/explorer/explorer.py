@@ -15,22 +15,16 @@ def get_user_trade_list(page_size, user_id):
     trade_list = list(Trade.objects.filter(Q(seller=user_id) | Q(buyer=user_id)).order_by('-timestamp')[:page_size])
     trade_list_with_type = []
     for i in trade_list:
-
+        buy_dict = i.__dict__.copy()
+        del buy_dict['buyer']
+        del buy_dict['seller']
+        del buy_dict['_state']
+        sell_dict = buy_dict.copy()
         if i.buyer == user_id:
-            buy_dict = {}
-            buy_dict['price'] = i.__dict__['price']
-            buy_dict['amount'] = i.__dict__['amount']
-            buy_dict['timestamp'] = i.__dict__['timestamp']
-            buy_dict['token_id'] = i.__dict__['token_id']
             buy_dict['type'] = 0
             trade_list_with_type.append(buy_dict)
 
         if i.seller == user_id:
-            sell_dict = {}
-            sell_dict['price'] = i.__dict__['price']
-            sell_dict['amount'] = i.__dict__['amount']
-            sell_dict['timestamp'] = i.__dict__['timestamp']
-            sell_dict['token_id'] = i.__dict__['token_id']
             sell_dict['type'] = 1
             trade_list_with_type.append(sell_dict)
 
