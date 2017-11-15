@@ -19,6 +19,11 @@ def get_user_order_view(request, user_id):
     order = get_user_order_list(page_size=page_size, user_id=user_id)
     return HttpResponse(json.dumps(order), content_type="application/json")
 
+def get_user_trade_view(request, user_id):
+    page_size = int(request.GET.get('page_size', 25))
+    trade = get_user_trade_list(page_size=page_size, user_id=user_id)
+    return HttpResponse(json.dumps(trade), content_type="application/json")
+
 def get_trade_data_view(request):
     since = int(request.GET.get('sicne', '0'))
     until = int(request.GET.get('until', '0'))
