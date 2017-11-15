@@ -33,7 +33,7 @@ def mk_random_trade(n, token_id = 0, price_bias = 2000, price_fluct = 0.1, amoun
     for i in range(0, n):
         price = random.randint(int(price * (1 - price_fluct)), int(price * (1 + price_fluct)))
         amount = random.randint(int(amount_bias * (1 - amount_fluct)), int(amount_bias + (1 + amount_fluct)))
-        trade = Trade(user_id=user_id,token_id=token_id,price=price,amount=amount,timestamp=timestamp)
+        trade = Trade(buyer=user_id,seller=user_id,token_id=token_id,price=price,amount=amount,timestamp=timestamp)
         trade.save(force_insert=True)
         timestamp = timestamp + time_interval
 
