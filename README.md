@@ -27,7 +27,7 @@ python manage.py match_order
 
 ## Archive trade record
 ```
-python manage.py archive_trade
+python manage.py archive_trades
 ```
 
 ## Generate random order or trade
