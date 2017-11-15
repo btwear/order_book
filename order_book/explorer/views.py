@@ -20,8 +20,8 @@ def get_user_order_view(request, user_id):
     return HttpResponse(json.dumps(order), content_type="application/json")
 
 def get_trade_data_view(request):
-    since = int(request.GET.get('sicne'))
-    until = int(request.GET.get('until'))
-    token_id = int(request.GET.get('token_id'))
+    since = int(request.GET.get('sicne', '0'))
+    until = int(request.GET.get('until', '0'))
+    token_id = int(request.GET.get('token_id', '-1'))
     trade = get_trade_record(since=since, until=until, token_id=token_id)
     return HttpResponse(json.dumps(trade), content_type="application/json")
