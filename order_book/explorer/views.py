@@ -15,7 +15,7 @@ def get_order_book_view(request):
     return HttpResponse(json.dumps(order_book), content_type="application/json")
 
 def get_user_order_view(request, user_id):
-    page_size = int(request.GET.get('page_size'))
+    page_size = int(request.GET.get('page_size', 25))
     order = get_user_order_list(page_size=page_size, user_id=user_id)
     return HttpResponse(json.dumps(order), content_type="application/json")
 
