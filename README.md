@@ -7,6 +7,7 @@
 - mysql
 
 ## Setup Environment
+
 modify settings.py, set up your mysql username and password in <user>, <password>
 ```
 DATABASES = {
@@ -17,6 +18,13 @@ DATABASES = {
         'PASSWORD': '<password>',
     }
 }
+```
+    
+create database in mysql name 'order_book'
+```
+mysql -u <username> -p
+<your password>
+>> create database order_book;
 ```
 
 ```
