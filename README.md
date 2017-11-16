@@ -19,14 +19,13 @@ DATABASES = {
     }
 }
 ```
-    
 create database in mysql name 'order_book'
 ```
 mysql -u <username> -p
 <your password>
 >> create database order_book;
 ```
-
+set up django environment
 ```
 virtualenv -p python3 venv
 source venv/bin/activate
