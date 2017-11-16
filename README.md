@@ -22,7 +22,7 @@ DATABASES = {
 ```
 virtualenv -p python3 venv
 source venv/bin/activate
-pip install django
+pip install -r requirements.txt
 cd order_book
 python manage.py makemigrations
 python manage.py migrate
