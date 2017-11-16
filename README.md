@@ -4,8 +4,21 @@
 ### Requirement
 - virtualenv
 - python3
+- mysql
 
 ## Setup Environment
+modify settings.py, set up your mysql username and password in <user>, <password>
+```
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'order_book',
+        'USER': '<user>',
+        'PASSWORD': '<password>',
+    }
+}
+```
+
 ```
 virtualenv -p python3 venv
 source venv/bin/activate

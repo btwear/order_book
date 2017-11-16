@@ -1,15 +1,28 @@
 from .models import *
 import random
 
+def create_token(token_id, token_name):
+    Token.objects.create(id=token_id, name=token_name)
+
 def order(user_id, token_id, type, price, amount, timestamp):
-    Order.objects.create(user_id=user_id,
-                              token_id=token_id,
-                              type=type,
-                              price=price,
-                              amount=amount,
-                              timestamp=timestamp)
+    token_list = list(Token.objects.all())
+    token_id_list = []
+    for i in token_list:
+        token_id_list.append(i.token_id)
+    if token_id not in token_id_list:
+        return 0
+    else:
+        Order.objects.create(user_id=user_id,
+                                  token_id=token_id,
+                                  type=type,
+                                  price=price,
+                                  amount=amount,
+                                  timestamp=timestamp)
+        return 1
 
 def mk_random_orders(n, user_list = [], token_id = 0,type_prob = 0.5, price_bias = 2000, price_fluct = 0.1, amount_bias = 500, amount_fluct = 0.5, timestamp_start = 0, time_interval = 10):
+    if not Token.objects.exists():
+        create_token(0, 'test')
     if not user_list:
         user_list.append('random')
     else:
@@ -36,6 +49,8 @@ def mk_random_orders(n, user_list = [], token_id = 0,type_prob = 0.5, price_bias
         timestamp = timestamp + time_interval
 
 def mk_random_trades(n, user_list = [], token_id = 0, price_bias = 2000, price_fluct = 0.1, amount_bias = 500, amount_fluct = 0.5, timestamp_start = 0, time_interval = 1):
+    if not Token.objects.exists():
+        create_token(0, 'test')
     if not user_list:
         user_list.append('random')
     else:

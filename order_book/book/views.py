@@ -14,12 +14,12 @@ def order_view(request):
         price = data['price']
         amount = data['amount']
         timestamp = data['timestamp']
-        order(user_id=user_id,
-              token_id=token_id,
-              type=type,
-              price=price,
-              amount=amount,
-              timestamp=timestamp)
-        return HttpResponse(1)
+        suss = order(user_id=user_id,
+                     token_id=token_id,
+                     type=type,
+                     price=price,
+                     amount=amount,
+                     timestamp=timestamp)
+        return HttpResponse(suss)
     except Exception:
-        return HttpResponse(0)
+        return HttpResponse(suss)
