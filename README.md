@@ -8,7 +8,7 @@
 
 ## Setup Environment
 
-modify settings.py, set up your mysql username and password in <user>, <password>
+modify settings.py, set up your mysql username and password in &lt;username&gt;, &lt;password&gt;
 ```
 DATABASES = {
     'default': {
