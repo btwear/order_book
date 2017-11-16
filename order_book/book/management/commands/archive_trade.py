@@ -1,6 +1,7 @@
 from django.core.management.base import BaseCommand, CommandError
 from book.models import Trade, Token, HistoryTrade
 import time
+import datetime
 
 time_interval = 15
 
@@ -20,12 +21,11 @@ class Command(BaseCommand):
                     trade_buffer[ti] = Trade.objects.filter(timestamp__gte=last_timestamp, token_id=token_list[ti].id).order_by('timestamp')
                     if not trade_buffer[ti]:
                         continue
-                    print('archive:timestamp = ' + str(last_timestamp))
+                    print(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S') + ' archive: timestamp=' + str(last_timestamp))
                     last_timestamp = int(trade_buffer[ti][0].timestamp / time_interval) *time_interval
                     trade_buffer[ti] = trade_buffer[ti].filter(timestamp__lt=last_timestamp+time_interval)
                     history_trade = reduce_to_history(list(trade_buffer[ti]), last_timestamp)
                     history_trade.save(force_insert=True)
-                    print(last_timestamp)
                     last_timestamp = last_timestamp + time_interval
             else:
                 time.sleep(5)

@@ -3,6 +3,7 @@ from book.models import Order, Trade, Token, HistoryTrade
 from operator import attrgetter
 from itertools import chain
 import time
+import datetime
 
 BUY = 0
 SELL = 1
@@ -50,6 +51,7 @@ class Command(BaseCommand):
                         min_list[0].delete()
                         min_list[1].save()
                         trade.save(force_insert=True)
+                        print(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S') + ' match: price=' + str(trade.price) + ', amount = ' + str(trade.amount))
                     else:
                         break
                 ti = ti + 1
