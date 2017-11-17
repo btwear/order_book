@@ -8,7 +8,7 @@ def order(user_id, token_id, type, price, amount, timestamp):
     token_list = list(Token.objects.all())
     token_id_list = []
     for i in token_list:
-        token_id_list.append(i.token_id)
+        token_id_list.append(i.id)
     if token_id not in token_id_list:
         return 0
     else:

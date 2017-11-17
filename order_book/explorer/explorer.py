@@ -43,6 +43,15 @@ def get_order_book(page_size, token_id):
     return order_list
 
 def get_trade_record(since, until, token_id):
-    trade_record = serializers.serialize('json', HistoryTrade.objects.filter(token_id=token_id, timestamp__gte=since, timestamp__lte=until).order_by('timestamp'))
+    trade_data = list(HistoryTrade.objects.filter(token_id=token_id, timestamp__gte=since, timestamp__lte=until).order_by('timestamp'))
+    trade_record = []
+    tmp_dict = {}
+    for i in trade_data:
+        tmp_dict = tmp_dict.copy()
+        tmp_dict['price'] = round(i.price, 4)
+        tmp_dict['total'] = i.amount
+        tmp_dict['timestamp'] = i.timestamp
+        trade_record.append(tmp_dict)
+    trade_record = json.dumps(trade_record)
     trade_record = json.loads(trade_record)
     return trade_record
