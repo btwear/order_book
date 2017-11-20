@@ -4,6 +4,7 @@ import random
 def create_token(token_id, token_name):
     Token.objects.create(id=token_id, name=token_name)
 
+#make a order
 def order(user_id, token_id, type, price, amount, timestamp):
     token_list = list(Token.objects.all())
     token_id_list = []
