@@ -5,6 +5,7 @@
 - virtualenv
 - python3
 - mysql
+- redis
 
 ## Setup Environment
 
