@@ -1,34 +1,44 @@
 from django.core.management.base import BaseCommand, CommandError
+from django.core.cache import cache
+from django.conf import settings
 from book.models import Trade, Token, HistoryTrade
 import time
 import datetime
 
-time_interval = 15
+time_interval = settings.ORDER_BOOK_SETTINGS['archive_time_interval']
 
 class Command(BaseCommand):
     def handle(self, *args, **options):
-        last_timestamp = 0
-        token_list = Token.objects.all()
-        trade_buffer = []
+        token_object_list = list(Token.objects.all())
+        token_list = []
+        for i in token_object_list:
+            token_list.append(i.id)
+        archive_number = []
         for i in token_list:
-            trade_buffer.append([])
-        if HistoryTrade.objects.exists():
-            last_timestamp = list(HistoryTrade.objects.all().order_by('timestamp'))[-1].timestamp + time_interval
-
+            archive_number_key = 'archive_number_' + str(i)
+            archive_number.append(cache.get_or_set(archive_number_key, -1, timeout=None))
         while True:
-            if (time.time() > (last_timestamp + time_interval + 5)):
-                for ti in range(0, len(token_list)):
-                    trade_buffer[ti] = Trade.objects.filter(timestamp__gte=last_timestamp, token_id=token_list[ti].id).order_by('timestamp')
-                    if not trade_buffer[ti]:
-                        continue
-                    print(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S') + ' archive: timestamp=' + str(last_timestamp))
-                    last_timestamp = int(trade_buffer[ti][0].timestamp / time_interval) *time_interval
-                    trade_buffer[ti] = trade_buffer[ti].filter(timestamp__lt=last_timestamp+time_interval)
-                    history_trade = reduce_to_history(list(trade_buffer[ti]), last_timestamp)
-                    history_trade.save(force_insert=True)
-                    last_timestamp = last_timestamp + time_interval
-            else:
-                time.sleep(5)
+            for i, ti in enumerate(token_list):
+                trade_number_key = 'trade_number_' + str(ti)
+                trade_number = cache.get_or_set(trade_number_key, -1)
+                if archive_number[i] < trade_number:
+                    archive_number_key = 'archive_number_' + str(ti)
+                    trade_keys = list(map(lambda x: 'Trade_' + str(ti) + '_' + str(x), range(archive_number[i] +1, trade_number +1)))
+                    trades = cache.get_many(trade_keys).items()
+                    trade_list = [x[1] for x in trades]
+                    archive_number[i] = trade_number
+                    cache.set(archive_number_key, trade_number, timeout=None)
+                    for trade in trade_list:
+                        ts = trade.timestamp
+                        ts = int(ts - (ts % time_interval))
+                        archive_key = 'Archive_' + str(ti) + '_' + str(ts)
+                        ts_archieve = cache.get_or_set(archive_key, HistoryTrade(price=0,amount=0,timestamp=ts,token_id=ti,volumn=0), timeout=None)
+                        ts_archieve.amount += trade.amount
+                        ts_archieve.volumn += trade.amount * trade.price
+                        ts_archieve.price = ts_archieve.volumn/ts_archieve.amount
+                        cache.set(archive_key, ts_archieve, timeout=None)
+                        print(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S') + ' archive: timestamp=' + str(ts))
+            time.sleep(1)
 
 
 
