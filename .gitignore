@@ -3,6 +3,7 @@
 *.idea/
 *.swp
 venv/
+db/
 __pycache__/
 *.pyc
 test.py
