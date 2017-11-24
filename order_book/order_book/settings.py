@@ -28,7 +28,7 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 ORDER_BOOK_SETTINGS = {
-    'archive_time_interval' : <'TIME_INTERVAL'>,
+    'archive_time_interval' : 60,
 }
 
 # Application definition
@@ -81,8 +81,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'order_book',
-        'USER': '<user>',
-        'PASSWORD': '<password>',
+        'USER': 'root',
+        'PASSWORD': 'abc123',
+        'HOST': 'db',
+        'PORT': 3306
     }
 }
 
@@ -122,8 +124,7 @@ USE_TZ = True
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://127.0.0.1:6379/1",
-        "TIMEOUT": 1,
+        "LOCATION": "redis://redis:6379/0",
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
         }
