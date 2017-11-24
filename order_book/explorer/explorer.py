@@ -81,7 +81,7 @@ time_interval = settings.ORDER_BOOK_SETTINGS['archive_time_interval']
 def get_trade_record(since, until, token_id):
     since = since - (since % time_interval)
     if until > int(time.time()): until = int(time.time())
-    if int((until - since)/time_interval) > cache.get('archive_number_' + str(token_id)):
+    if int((until - since)/time_interval) > cache.get_or_set('archive_number_' + str(token_id), -1, timeout=None):
         keys = cache.keys('Archive_' + str(token_id) + '_*')
     else:
         time_list = list(range(since, until + 1, time_interval))

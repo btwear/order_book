@@ -28,7 +28,7 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 ORDER_BOOK_SETTINGS = {
-    'archive_time_interval' : <'TIME_INTERVAL'>,
+    'archive_time_interval' : '<TIME_INTERVAL>',
 }
 
 # Application definition
@@ -123,7 +123,6 @@ CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
         "LOCATION": "redis://127.0.0.1:6379/1",
-        "TIMEOUT": 1,
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
         }
