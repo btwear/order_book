@@ -9,11 +9,11 @@ def order_view(request):
     try:
         data = request.POST
         user_id = data['user_id']
-        token_id = data['token_id']
-        type = data['type']
-        price = data['price']
-        amount = data['amount']
-        timestamp = data['timestamp']
+        token_id = int(data['token_id'])
+        type = int(data['type'])
+        price = int(data['price'])
+        amount = int(data['amount'])
+        timestamp = int(data['timestamp'])
         suss = order(user_id=user_id,
                      token_id=token_id,
                      type=type,
