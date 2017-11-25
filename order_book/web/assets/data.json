@@ -1,0 +1,337 @@
+[
+    {
+        "price": 2031.8789,
+        "total": 5326,
+        "timestamp": 0
+    },
+    {
+        "price": 2331.7849,
+        "total": 5801,
+        "timestamp": 15
+    },
+    {
+        "price": 2381.3247,
+        "total": 5771,
+        "timestamp": 30
+    },
+    {
+        "price": 2651.6727,
+        "total": 5698,
+        "timestamp": 45
+    },
+    {
+        "price": 2876.477,
+        "total": 5757,
+        "timestamp": 60
+    },
+    {
+        "price": 3358.1136,
+        "total": 5667,
+        "timestamp": 75
+    },
+    {
+        "price": 2453.8342,
+        "total": 6301,
+        "timestamp": 90
+    },
+    {
+        "price": 2668.0046,
+        "total": 5433,
+        "timestamp": 105
+    },
+    {
+        "price": 3019.1756,
+        "total": 5887,
+        "timestamp": 120
+    },
+    {
+        "price": 3179.9149,
+        "total": 5639,
+        "timestamp": 135
+    },
+    {
+        "price": 2623.0594,
+        "total": 6159,
+        "timestamp": 150
+    },
+    {
+        "price": 2149.808,
+        "total": 5864,
+        "timestamp": 165
+    },
+    {
+        "price": 2151.6228,
+        "total": 5051,
+        "timestamp": 180
+    },
+    {
+        "price": 2080.4194,
+        "total": 6216,
+        "timestamp": 195
+    },
+    {
+        "price": 2285.891,
+        "total": 5121,
+        "timestamp": 210
+    },
+    {
+        "price": 2792.8223,
+        "total": 5357,
+        "timestamp": 225
+    },
+    {
+        "price": 3180.9289,
+        "total": 6016,
+        "timestamp": 240
+    },
+    {
+        "price": 3123.2659,
+        "total": 5721,
+        "timestamp": 255
+    },
+    {
+        "price": 2375.3014,
+        "total": 5700,
+        "timestamp": 270
+    },
+    {
+        "price": 2620.8363,
+        "total": 5425,
+        "timestamp": 285
+    },
+    {
+        "price": 2096.182,
+        "total": 6082,
+        "timestamp": 300
+    },
+    {
+        "price": 1896.1329,
+        "total": 5833,
+        "timestamp": 315
+    },
+    {
+        "price": 1347.0887,
+        "total": 5458,
+        "timestamp": 330
+    },
+    {
+        "price": 1495.4645,
+        "total": 5873,
+        "timestamp": 345
+    },
+    {
+        "price": 1246.1463,
+        "total": 5849,
+        "timestamp": 360
+    },
+    {
+        "price": 1410.4225,
+        "total": 5863,
+        "timestamp": 375
+    },
+    {
+        "price": 1219.71,
+        "total": 5318,
+        "timestamp": 390
+    },
+    {
+        "price": 1129.2903,
+        "total": 5298,
+        "timestamp": 405
+    },
+    {
+        "price": 996.6365,
+        "total": 5213,
+        "timestamp": 420
+    },
+    {
+        "price": 987.8743,
+        "total": 6358,
+        "timestamp": 435
+    },
+    {
+        "price": 1127.0266,
+        "total": 5855,
+        "timestamp": 450
+    },
+    {
+        "price": 1197.776,
+        "total": 5519,
+        "timestamp": 465
+    },
+    {
+        "price": 1241.0765,
+        "total": 5557,
+        "timestamp": 480
+    },
+    {
+        "price": 1206.8919,
+        "total": 6145,
+        "timestamp": 495
+    },
+    {
+        "price": 1333.3754,
+        "total": 5447,
+        "timestamp": 510
+    },
+    {
+        "price": 1316.6319,
+        "total": 5042,
+        "timestamp": 525
+    },
+    {
+        "price": 1169.5738,
+        "total": 6004,
+        "timestamp": 540
+    },
+    {
+        "price": 1397.5314,
+        "total": 5788,
+        "timestamp": 555
+    },
+    {
+        "price": 1328.0986,
+        "total": 5923,
+        "timestamp": 570
+    },
+    {
+        "price": 1142.2798,
+        "total": 6011,
+        "timestamp": 585
+    },
+    {
+        "price": 1234.6145,
+        "total": 5928,
+        "timestamp": 600
+    },
+    {
+        "price": 1170.3209,
+        "total": 5765,
+        "timestamp": 615
+    },
+    {
+        "price": 1601.45,
+        "total": 5680,
+        "timestamp": 630
+    },
+    {
+        "price": 1456.397,
+        "total": 5861,
+        "timestamp": 645
+    },
+    {
+        "price": 926.5923,
+        "total": 5501,
+        "timestamp": 660
+    },
+    {
+        "price": 778.5043,
+        "total": 5733,
+        "timestamp": 675
+    },
+    {
+        "price": 748.8027,
+        "total": 5731,
+        "timestamp": 690
+    },
+    {
+        "price": 632.4516,
+        "total": 5414,
+        "timestamp": 705
+    },
+    {
+        "price": 621.3067,
+        "total": 5627,
+        "timestamp": 720
+    },
+    {
+        "price": 662.5983,
+        "total": 5654,
+        "timestamp": 735
+    },
+    {
+        "price": 551.2406,
+        "total": 6018,
+        "timestamp": 750
+    },
+    {
+        "price": 537.9562,
+        "total": 5801,
+        "timestamp": 765
+    },
+    {
+        "price": 422.4676,
+        "total": 5672,
+        "timestamp": 780
+    },
+    {
+        "price": 343.8564,
+        "total": 5543,
+        "timestamp": 795
+    },
+    {
+        "price": 235.8865,
+        "total": 5743,
+        "timestamp": 810
+    },
+    {
+        "price": 229.6199,
+        "total": 5280,
+        "timestamp": 825
+    },
+    {
+        "price": 165.1153,
+        "total": 5882,
+        "timestamp": 840
+    },
+    {
+        "price": 193.9727,
+        "total": 5680,
+        "timestamp": 855
+    },
+    {
+        "price": 207.047,
+        "total": 5424,
+        "timestamp": 870
+    },
+    {
+        "price": 189.0371,
+        "total": 5555,
+        "timestamp": 885
+    },
+    {
+        "price": 185.4625,
+        "total": 6086,
+        "timestamp": 900
+    },
+    {
+        "price": 200.0678,
+        "total": 5400,
+        "timestamp": 915
+    },
+    {
+        "price": 218.3241,
+        "total": 5408,
+        "timestamp": 930
+    },
+    {
+        "price": 186.6519,
+        "total": 5501,
+        "timestamp": 945
+    },
+    {
+        "price": 159.6047,
+        "total": 5656,
+        "timestamp": 960
+    },
+    {
+        "price": 133.3235,
+        "total": 5908,
+        "timestamp": 975
+    },
+    {
+        "price": 149.4407,
+        "total": 4003,
+        "timestamp": 990
+    }
+]

@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <title>OrderBook</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+  <link rel="stylesheet" href="css/master.css">
+</head>
+
+<body>
+  <div class="container">
+    <h1>ORDER BOOK</h1>
+    <div class="row justify-content-center align-items-center">
+      <div id="trendGraph" class="col col-lg-8 col-md-10 col-sm-12">
+        <svg id="trendSVG" width="730" height="400">
+          <rect width="730" height="400" fill="white" stroke="black">
+          </rect>
+          <g>
+
+          </g>
+        </svg>
+      </div>
+      <div id="orderDiv" class="col col-lg-4">
+        <div id="orderCard" class='card'>
+          <div class="card-header">
+            <ul class="nav nav-tabs card-header-tabs">
+              <li class="nav-item"><a href="#" class="nav-link" v-bind:class="{ active: type==0 }" v-on:click="changeType(0)">BUY</a></li>
+              <li class="nav-item"><a href="#" class="nav-link" v-bind:class="{ active: type==1 }" v-on:click="changeType(1)">SELL</a></li>
+            </ul>
+          </div>
+          <div class="card-body">
+            <form v-if="user_id">
+              <div class="form-group row">
+                <label for="buy-price" class="col-4 col-form-label">Price</label>
+                <div class="col-8">
+                  <input v-model="price" v-on:input="changePrice()" class="form-control" type="number"  id="price">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="buy-amount" class="col-4 col-form-label">Amount</label>
+                <div class="col-8">
+                  <input v-model="amount" v-on:input="changePrice()" class="form-control" type="number" id="amount">
+                </div>
+              </div>
+              <hr/>
+              <div class="form-group row">
+                <label for="buy-total" class="col-4 col-form-label">Total</label>
+                <div class="col-8">
+                  <input v-model="total" v-on:input="changeTotal()" class="form-control" type="number" id="total">
+                </div>
+              </div>
+              <div v-if="type==0" v-on:click="sendMyOrder()" class="btn btn-primary">BUY</div>
+              <div v-else v-on:click="sendMyOrder()" class="btn btn-primary">SELL</div>
+            </form>
+            <form v-else v-on:submit.prevent="submit_id">
+              <h5>Login</h5>
+              <input type="text" name="user_id" value="" placeholder="USER ID" v-model="pre_user_id"/>
+              <button v-on:click="submit_id" class="btn btn-primary">Enter</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row justify-content-center align-item-center">
+      <div id="bidOrderBook" class="col col-lg-6 col-md-6">
+        <div class="card">
+          <div class="card-header">BUY ORDERS</div>
+          <div class="card-body scroll-card">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th scope="col">PRICE</th>
+                  <th scope="col">BTC</th>
+                  <th scope="col">USD</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="item in bidOrderBook">
+                  <td>{{item.price}}</td>
+                  <td>{{item.amount}}</td>
+                  <td>{{item.price * item.amount}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div id="sellOrderBook" class="col col-lg-6 col-md-6">
+        <div class="card">
+          <div class="card-header">SELL ORDERS</div>
+          <div class="card-body scroll-card">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th scope="col">PRICE</th>
+                  <th scope="col">BTC</th>
+                  <th scope="col">USD</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="item in sellOrderBook">
+                  <td>{{item.price}}</td>
+                  <td>{{item.amount}}</td>
+                  <td>{{item.price * item.amount}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+    <div class="row justify-content-center align-item-center">
+      <div id="myOpenOrders" class="col-12">
+        <div class="card">
+          <div class="card-header">MY OPEN ORDERS</div>
+          <div class="card-body scroll-card">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th scope="col">Market</th>
+                  <th scope="col">Type</th>
+                  <th scope="col">Price</th>
+                  <th scope="col">Amount</th>
+                  <th scope="col">Total</th>
+                  <th scope="col">Order Time</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="item in myOpenOrders">
+                  <td>BTC/USD</td>
+                  <td>{{item.type == 1 ? 'sell' : 'buy'}}</td>
+                  <td>{{item.price}}</td>
+                  <td>{{item.amount}}</td>
+                  <td>{{item.price * item.amount}}</td>
+                  <td>{{timeConvert(item.timestamp)}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div id="myTradeHistory" class="col-12">
+        <div class="card">
+          <div class="card-header">MY TRADE HISTORY</div>
+          <div class="card-body scroll-card">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th scope="col">Market</th>
+                  <th scope="col">Type</th>
+                  <th scope="col">Price</th>
+                  <th scope="col">Amount</th>
+                  <th scope="col">Total</th>
+                  <th scope="col">Transaction Time</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="item in myTradeHistory">
+                  <td>BTC/USD</td>
+                  <td>{{item.type == 1 ? 'sell' : 'buy'}}</td>
+                  <td>{{item.price}}</td>
+                  <td>{{item.amount}}</td>
+                  <td>{{item.price * item.amount}}</td>
+                  <td>{{timeConvert(item.timestamp)}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  <div class="modal fade" id="informationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="informationModalLabel">Order</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Success
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/vue"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.11.0/d3.min.js" charset="utf-8"></script>
+    <script src="js/moment.js" charset="utf-8"></script>
+    <script src="js/master.js" charset="utf-8"></script>
+</body>
+
+</html>

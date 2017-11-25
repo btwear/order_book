@@ -68,3 +68,12 @@ If you want to generate random trade
 from book.orderbook import *
 mk_random_trade(n)
 ```
+## install Web server
+```
+npm install live-server
+```
+
+## Start Web server
+```
+live-server ./web
+```
