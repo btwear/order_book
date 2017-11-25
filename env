@@ -1,0 +1,5 @@
+DB_NAME=order_book
+DB_USER=rooy
+DB_PASS=abc123
+DB_SERVICE=mysql
+DB_PORT=3306
