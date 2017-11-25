@@ -1,0 +1,43 @@
+version: '3'
+services:
+    redis:
+        image: redis
+        restart: always
+        ports:
+            - "6379:6379"
+        volumes:
+            - "redisdata:/data"
+    db:
+        image: mysql
+        expose:
+            - "3306"
+        volumes:
+            - ./db:/var/lib/mysql
+        restart: always
+        environment:
+            - MYSQL_ROOT_PASSWORD=abc123
+            - MYSQL_DATABASE=order_book
+    backend:
+        build: ./order_book
+        command: bash -c "python manage.py makemigrations & python manage.py migrate & python manage.py match_order & python manage.py archive_trade & python manage.py runserver 0.0.0.0:8000"
+        volumes:
+            - .:/code
+        ports:
+            - "8000:8000"
+        links:
+            - db
+            - redis
+        env_file: env
+    web:
+        build: ./web
+        command: live-server ./web
+        volumes:
+            - .:/code
+        ports:
+            - "8080:8080"
+        links:
+            - backend
+        env_file: env
+        
+volumes:
+    redisdata:
